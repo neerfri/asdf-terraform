@@ -3,9 +3,9 @@ before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
 script:
-  - asdf plugin-add terraform https://github.com/neerfri/asdf-terraform.git
+  - asdf plugin-add terraform ./
   - asdf list-all terraform
-  - asdf plugin-test terraform https://github.com/neerfri/asdf-terraform.git 'terraform --version'
+  - asdf plugin-test terraform ./ 'terraform --version'
 
 os:
   - linux
