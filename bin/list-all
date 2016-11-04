@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+curl -s https://api.github.com/repos/hashicorp/terraform/releases | \
+  jq -r '.[].tag_name' | \
+  awk '{sub(/^v/,"")};1'
