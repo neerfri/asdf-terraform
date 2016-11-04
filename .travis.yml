@@ -1,8 +1,12 @@
 language: c
-script: asdf plugin-test terraform https://github.com/neerfri/asdf-terraform.git 'terraform --version'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
+script:
+  - asdf plugin-add terraform https://github.com/neerfri/asdf-terraform.git
+  - asdf list-all terraform
+  - asdf plugin-test terraform https://github.com/neerfri/asdf-terraform.git 'terraform --version'
+
 os:
   - linux
   - osx
