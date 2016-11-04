@@ -1,5 +1,5 @@
 language: c
-script: asdf plugin-test nodejs https://github.com/neerfri/asdf-terraform.git 'terraform --version'
+script: asdf plugin-test terraform https://github.com/neerfri/asdf-terraform.git 'terraform --version'
 before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
