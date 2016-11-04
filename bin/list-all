@@ -3,6 +3,19 @@
 set -e
 set -o pipefail
 
-curl -s https://api.github.com/repos/hashicorp/terraform/releases | \
-  grep '"tag_name":' | \
-  perl -n -e'/"v(.*)"/ && print $1 . " "'
+url=https://api.github.com/repos/hashicorp/terraform/releases
+
+ruby -rjson -ropen-uri <<SCRIPT
+begin
+  response = open("${url}").read
+  puts JSON.parse(response).
+    reject { |e| e["prerelease"] }.
+    map{ |e| e["tag_name"].gsub(/^v/, "") }.
+    sort.
+    join(" ")
+rescue StandardError => err
+  warn "Could not fetch list of terraform versions"
+  warn "Github response:\n#{response}"
+  raise err
+end
+SCRIPT
