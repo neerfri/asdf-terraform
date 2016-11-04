@@ -3,6 +3,7 @@ before_script:
   - git clone https://github.com/asdf-vm/asdf.git asdf
   - . asdf/asdf.sh
 script:
+  - bin/list-all
   - asdf plugin-add terraform ./
   - asdf list-all terraform
   - asdf plugin-test terraform ./ 'terraform --version'
