@@ -19,6 +19,7 @@ version_sort() {
 }
 
 curl -s "$url" \
-    | grep -oP '(?<=/terraform/)\d+\.\d+\.\d+[^/]*' \
+    | grep -oE '/terraform/[[:digit:]]\.[[:digit:]]+\.[[:digit:]]+[^/]*' \
+    | sed 's,/terraform/,,' \
     | version_sort \
     || failed "Could not fetch list of Terraform versions"
