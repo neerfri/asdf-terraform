@@ -22,4 +22,5 @@ curl -s "$url" \
     | grep -oE '/terraform/[[:digit:]]\.[[:digit:]]+\.[[:digit:]]+[^/]*' \
     | sed 's,/terraform/,,' \
     | version_sort \
+    | tr '\n' ' ' \
     || failed "Could not fetch list of Terraform versions"
