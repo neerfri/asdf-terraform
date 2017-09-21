@@ -3,22 +3,6 @@
 set -e
 set -o pipefail
 
-url=https://releases.hashicorp.com/terraform/
-
-ruby -rubygems -ropen-uri <<SCRIPT
-begin
-  response = open("${url}").read
-  puts response.
-    each_line.
-    map {|l| l =~ %r{terraform/([0-9.]+)/} ? Regexp.last_match[1] : nil }.
-    compact.
-    map { |version| Gem::Version.new(version) }.
-    sort.
-    join(" ")
-
-rescue StandardError => err
-  warn "Could not fetch list of terraform versions"
-  warn "Response:\n#{response}"
-  raise err
-end
-SCRIPT
+curl -s https://releases.hashicorp.com/terraform/ \
+  | grep -o 'terraform_[0-9]\+\.[0-9]\+\.[0-9]\+\(-[a-z]\+[0-9]*\)\?' \
+  | tr -d '\n' | sed 's/terraform_/ /g; s/^ //'
