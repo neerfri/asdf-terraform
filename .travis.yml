@@ -7,7 +7,6 @@ script:
   - asdf plugin-add terraform ./
   - asdf list-all terraform
   - asdf plugin-test terraform ./ 'terraform version'
-
 os:
   - linux
   - osx
